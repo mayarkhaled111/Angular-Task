@@ -1,0 +1,59 @@
+<!-- Button trigger modal -->
+<button type="button" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#staticBackdrop">
+    <i class="fa-solid fa-circle-plus"></i> Add New Employee
+</button>
+
+<!-- Modal -->
+ <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true" >
+    <div class="modal-dialog" >
+        <div class="modal-content">
+            <div class="modal-header">
+                <h1 class="modal-title fs-3 text-black" id="staticBackdropLabel">Add Employee</h1>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <form #empForm="ngForm" (submit)="addEmployee()">
+                    <div class="mb-3">
+                        <label for="name" class="form-label text-black">Name</label>
+                        <input #empNameInp="ngModel" type="text" class="form-control" id="name" placeholder="Your Name"
+                            [(ngModel)]="newEmploy.empName" name="empName" required pattern="[A-Za-z]{3,}">
+                            <div [hidden]="empNameInp.valid || empNameInp.untouched">
+                                <small class="text-danger" *ngIf="empNameInp.errors?.['required']">Name is required </small>
+                                <small class="text-danger" *ngIf="empNameInp.errors?.['pattern']">Name must be more than 3 letter </small>
+                            </div>
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="email" class="form-label text-black">Email</label>
+                        <input #empEmail="ngModel" type="email" class="form-control" id="email"
+                            placeholder="name@example.com" [(ngModel)]="newEmploy.empEmail" name="empEmail" required required 
+                            pattern="^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$">
+                            <div [hidden]="empEmail.valid || empEmail.untouched">
+                                <small class="text-danger" *ngIf="empEmail.errors?.['required']">email is required </small>
+                                <small class="text-danger" *ngIf="empEmail.errors?.['pattern']"> Please enter a valid email address </small>
+                            </div>
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="address" class="form-label text-black">Address</label>
+                        <textarea #empAdd="ngModel"  class="form-control" id="address" rows="3" [(ngModel)]="newEmploy.empAddress" name="empAddress"  required > </textarea>
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="phone" class="form-label text-black">Phone</label>
+                        <input #empNum="ngModel"  type="text" class="form-control" id="phone" placeholder="Your Valid Phone"
+                            [(ngModel)]="newEmploy.empPhone" name="empPhone" required pattern="^01[0-2]\d{8}$">
+                            <div [hidden]="empNum.valid || empNum.untouched">
+                                <small class="text-danger" *ngIf="empNum.errors?.['required']">Phone is required </small>
+                                <small class="text-danger" *ngIf="empNum.errors?.['pattern']"> Please enter a valid Phone Number </small>
+                            </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                        <button [disabled]="empForm.invalid" type="submit"  class="btn btn-success" >Add</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div> 
